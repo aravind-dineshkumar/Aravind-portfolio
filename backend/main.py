@@ -16,7 +16,7 @@ from backend.database import (
     save_message,
     toggle_task,
 )
-from backend.portfolio_data import PORTFOLIO_DATA, RESUME_PDF_PATH
+from backend.portfolio_data import PORTFOLIO_DATA, RESUME_PDF_PATH, RESUME_PUBLIC_PATH
 from backend.voice_engine import process_voice_command
 
 EMAIL_REGEX = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
@@ -103,7 +103,9 @@ class PortfolioAPIHandler(BaseHTTPRequestHandler):
 
         if path == "/api/resume/download":
             if not RESUME_PDF_PATH.exists():
-                self._send_json({"error": "Resume PDF not found"}, status=HTTPStatus.NOT_FOUND)
+                self.send_response(HTTPStatus.FOUND)
+                self.send_header("Location", RESUME_PUBLIC_PATH)
+                self.end_headers()
                 return
             pdf_bytes = RESUME_PDF_PATH.read_bytes()
             self.send_response(HTTPStatus.OK)

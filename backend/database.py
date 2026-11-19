@@ -1,9 +1,14 @@
+import os
 import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-DB_PATH = Path(__file__).resolve().parent / "portfolio.db"
+_DEFAULT_DB_PATH = Path(__file__).resolve().parent / "portfolio.db"
+if os.environ.get("VERCEL") or not os.access(_DEFAULT_DB_PATH.parent, os.W_OK):
+    DB_PATH = Path("/tmp/portfolio.db")
+else:
+    DB_PATH = _DEFAULT_DB_PATH
 
 
 def get_connection() -> sqlite3.Connection:
