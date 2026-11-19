@@ -1,0 +1,6 @@
+{
+  "name": "Aravind Dineshkumar — Portfolio",
+  "description": "Engineering portfolio for Aravind Dineshkumar, B.Tech CSE (AI & ML) student at Jain University, featuring a Python-powered backend and interactive Voice Assistant.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
